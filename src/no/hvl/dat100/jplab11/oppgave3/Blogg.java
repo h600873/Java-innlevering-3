@@ -4,64 +4,115 @@ import no.hvl.dat100.jplab11.common.TODO;
 import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
+	
+	private Innlegg[] samling;
+	private int antall;
 
 	// TODO: objektvariable 
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		
+		samling = new Innlegg[20];
+		antall = 0;
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		samling = new Innlegg[lengde];
+		antall = 0;
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return antall;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return samling;
 
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean funnet = false;
+		int pos = 0;
+		while (pos < antall && !funnet) {
+			if(samling[pos].getId() == innlegg.getId()) {
+				funnet = true;
+			} else
+				pos++;
+		}
+		if (funnet) {
+			return pos;
+		} else return -1;
+	
 	}
 
 	public boolean finnes(Innlegg innlegg) {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		for(int i = 0; i<antall; i++){
+			if(samling[i].erLik(innlegg)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public boolean ledigPlass() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		if(antall < samling.length) {
+			return true;
+		}else return false;
 
 	}
 	
 	public boolean leggTil(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean ny = finnInnlegg(innlegg) == -1;
+		if(ny && antall < samling.length) {
+			samling[antall] = innlegg;
+			antall++;
+			return true;
+		}
+		else return false;
 	}
 	
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		String tekst = antall + "\n";
+		for(int i = 0; i < antall; i++) {
+			tekst += samling[i].toString();
+		}
+		return tekst;
 	}
 
 	// valgfrie oppgaver nedenfor
 	
 	public void utvid() {
-		throw new UnsupportedOperationException(TODO.method());
+		
+		Innlegg [] nySamling = new Innlegg[antall * 2];
+		for(int i = 0; i<antall; i++) {
+			nySamling[i] = samling[i];
+		}
 	}
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		return true;
 		
 	}
 	
 	public boolean slett(Innlegg innlegg) {
 		
-		throw new UnsupportedOperationException(TODO.method());
+		int i = 0;
+		while (i<antall) {
+			if(samling[i] == innlegg) {
+				antall--;
+				samling[i] = samling[antall];
+				samling[antall] = null;
+				return true;
+			}else
+				i++;
+		}
+		return false;
 	}
 	
 	public int[] search(String keyword) {

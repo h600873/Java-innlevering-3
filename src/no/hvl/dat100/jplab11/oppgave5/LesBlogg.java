@@ -22,7 +22,19 @@ public class LesBlogg {
 
 	public static Blogg les(String mappe, String filnavn) {
 
-		throw new UnsupportedOperationException(TODO.method());
-
+		try {
+			Scanner scanner = new Scanner(new File(mappe + filnavn));
+			Blogg nyBlogg = new Blogg(scanner.nextInt());
+			
+			while(scanner.hasNextLine()) {
+				String sjekk = scanner.nextLine();
+				if(sjekk.contains(TEKST) || sjekk.contains(BILDE)) {
+					
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
